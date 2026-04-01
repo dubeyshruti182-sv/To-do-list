@@ -1,4 +1,3 @@
-// Load tasks on page load
 window.onload = function () {
   loadTasks();
 };
@@ -17,46 +16,48 @@ function addTask() {
     completed: false
   };
 
-  saveTask(task);
-  input.value = "";
-  loadTasks(); // refresh task list
-}
-
-function saveTask(task) {
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   tasks.push(task);
   localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  input.value = "";
+  loadTasks();
 }
 
 function loadTasks() {
   const taskList = document.getElementById("taskList");
-  taskList.innerHTML = ""; // clear the list
+  taskList.innerHTML = "";
 
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
   tasks.forEach((task, index) => {
     const li = document.createElement("li");
-    li.textContent = task.text;
+
+    const span = document.createElement("span");
+    span.textContent = task.text;
 
     if (task.completed) {
-      li.classList.add("completed");
+      span.classList.add("completed");
     }
 
-    // Toggle completed on click
-    li.addEventListener("click", function () {
+    span.onclick = function () {
       tasks[index].completed = !tasks[index].completed;
       localStorage.setItem("tasks", JSON.stringify(tasks));
-      loadTasks(); // reload after toggle
-    });
+      loadTasks();
+    };
 
-    // Right-click to delete
-    li.addEventListener("contextmenu", function (e) {
-      e.preventDefault();
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "❌";
+    deleteBtn.classList.add("delete-btn");
+
+    deleteBtn.onclick = function () {
       tasks.splice(index, 1);
       localStorage.setItem("tasks", JSON.stringify(tasks));
       loadTasks();
-    });
+    };
 
+    li.appendChild(span);
+    li.appendChild(deleteBtn);
     taskList.appendChild(li);
   });
 }
