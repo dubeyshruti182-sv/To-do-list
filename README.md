@@ -44,7 +44,7 @@ script.js
 
 ## Screenshot
 
-<img width="451" height="331" alt="image" src="https://github.com/user-attachments/assets/4807d953-7ea2-44bb-bb43-e1ac8be950b5" />
+<img width="368" height="340" alt="image" src="https://github.com/user-attachments/assets/90717ba6-820b-4bc9-becb-3bddb0381af0" />
 
 
 ## 👩‍💻 Author
